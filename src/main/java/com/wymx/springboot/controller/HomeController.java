@@ -23,7 +23,7 @@ public class HomeController {
     private DiscussPostService discussPostService;
     @Autowired
     private UserService userService;
-
+//
     @RequestMapping(path = "/index",method = RequestMethod.GET)
     public String getIndexPage(Model model, Page page){
         //方法调用之前，springMVC会自动实例化Model和Page，并将Page注入Model
