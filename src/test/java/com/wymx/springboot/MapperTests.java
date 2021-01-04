@@ -1,8 +1,10 @@
 package com.wymx.springboot;
 
 import com.wymx.springboot.dao.DiscussPostMapper;
+import com.wymx.springboot.dao.LoginTicketMapper;
 import com.wymx.springboot.dao.UserMapper;
 import com.wymx.springboot.entity.DiscussPost;
+import com.wymx.springboot.entity.LoginTicket;
 import com.wymx.springboot.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ public class MapperTests {
     private UserMapper userMapper;
     @Autowired
     private DiscussPostMapper discussPostMapper;
+    @Autowired
+    private LoginTicketMapper loginTicketMapper;
 
     @Test
     public void testSelectUser(){
@@ -61,6 +65,25 @@ public class MapperTests {
         }
         int i = discussPostMapper.selectDiscussPostRows(149);
         System.out.println(i);
+    }
+
+    @Test
+    public void loginTicket(){
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setUserId(1);
+        loginTicket.setTicket("wert");
+        loginTicket.setStatus(0);
+        loginTicket.setExpired(new Date(System.currentTimeMillis()+1000*60*10));
+        loginTicketMapper.insertLoginTicket(loginTicket);
+    }
+
+    @Test
+    public void selectLoginTicket(){
+        LoginTicket loginTicket = loginTicketMapper.selectByTicket("wert");
+        System.out.println(loginTicket);
+        loginTicketMapper.updateStatus("wert", 1);
+        LoginTicket loginTicket1 = loginTicketMapper.selectByTicket("wert");
+        System.out.println(loginTicket1);
     }
 
 }
