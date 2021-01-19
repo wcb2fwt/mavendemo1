@@ -2,9 +2,11 @@ package com.wymx.springboot;
 
 import com.wymx.springboot.dao.DiscussPostMapper;
 import com.wymx.springboot.dao.LoginTicketMapper;
+import com.wymx.springboot.dao.MessageMapper;
 import com.wymx.springboot.dao.UserMapper;
 import com.wymx.springboot.entity.DiscussPost;
 import com.wymx.springboot.entity.LoginTicket;
+import com.wymx.springboot.entity.Message;
 import com.wymx.springboot.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,25 @@ public class MapperTests {
     private DiscussPostMapper discussPostMapper;
     @Autowired
     private LoginTicketMapper loginTicketMapper;
+    @Autowired
+    private MessageMapper messageMapper;
+
+    @Test
+    public void messageTest(){
+        List<Message> list = messageMapper.selectConversations(111, 0, 20);
+        for (Message message : list){
+            System.out.println(message);
+        }
+        int count = messageMapper.selectConversationCount(111);
+        System.out.println(count);
+        List<Message> messages = messageMapper.selectLetters("111_112", 0, 10);
+        for (Message message : messages){
+            System.out.println(message);
+        }
+        count = messageMapper.selectLetterCount("111_112");
+        System.out.println(count);
+
+    }
 
     @Test
     public void testSelectUser(){
