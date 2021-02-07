@@ -12,25 +12,25 @@
 
     <!--在mapper之内我们需要写出各种各样的标签，每一个标签需要对应一个接口中的方法 ,每一个标签的id为接口中对应的方法名，这样mybatis就知道
     这个是为那个方法服务的-->
-    <select id="selectById" resultType="User">
+    <select id="selectById" resultType="com.wymx.springboot.entity.User">
         select <include refid="selectFields"></include>
         from user
         where id = #{id}
     </select>
 
-    <select id="selectByName" resultType="User">
+    <select id="selectByName" resultType="com.wymx.springboot.entity.User">
         select <include refid="selectFields"></include>
         from user
         where username = #{username}
     </select>
 
-    <select id="selectByEmail" resultType="User">
+    <select id="selectByEmail" resultType="com.wymx.springboot.entity.User">
         select <include refid="selectFields"></include>
         from user
         where email = #{email}
     </select>
 
-    <insert id="insertUser" parameterType="User" keyProperty="id">
+    <insert id="insertUser" parameterType="com.wymx.springboot.entity.User" keyProperty="id">
         insert into user (<include refid="insertFields"></include>)
         values (#{username}, #{password}, #{salt}, #{email}, #{type},#{status},#{activationCode},#{headerUrl},#{createTime})
     </insert>

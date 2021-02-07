@@ -24,7 +24,7 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
 
     //在Controller之前执行
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         String ticket = CookieUtil.getValue(request, "ticket");
 
@@ -44,7 +44,7 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
 
     //在模版之前调用
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView){
         User user = hostHolder.getUser();
         if (user != null && modelAndView != null){
             //将用户信息添加到模版
@@ -54,7 +54,7 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
 
     //在整个请求执行完成之后执行的方法
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex){
         hostHolder.clear();
     }
 }

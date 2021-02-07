@@ -59,7 +59,7 @@ public class Page {
      */
     public int getOffset(){
         //current * limit - limit 当前页*行数-行数=当前页起始行
-        return current*(limit-1);
+        return (current-1)*limit;
     }
 
     /**
@@ -68,9 +68,9 @@ public class Page {
      */
     public int getTotal(){
         if (rows % limit == 0){
-            return rows % limit;
+            return rows / limit;
         }else {
-            return rows % limit + 1;
+            return rows / limit + 1;
         }
     }
 

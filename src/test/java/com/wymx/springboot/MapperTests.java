@@ -100,11 +100,24 @@ public class MapperTests {
 
     @Test
     public void selectLoginTicket(){
-        LoginTicket loginTicket = loginTicketMapper.selectByTicket("wert");
-        System.out.println(loginTicket);
-        loginTicketMapper.updateStatus("wert", 1);
-        LoginTicket loginTicket1 = loginTicketMapper.selectByTicket("wert");
-        System.out.println(loginTicket1);
+        get();
+    }
+
+    @Test
+    public void get(){
+        boolean index = false;
+        if (index) System.out.println("true");;
+        if (!index) System.out.println("2");
+    }
+
+    public void get1(){
+        boolean index = false;
+        if (index){
+            System.out.println("true");;
+        }else {
+            System.out.println("2");
+        }
+
     }
 
 }

@@ -2,8 +2,10 @@ package com.wymx.springboot.service;
 
 import com.wymx.springboot.dao.MessageMapper;
 import com.wymx.springboot.entity.Message;
+import com.wymx.springboot.util.SensiveFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
@@ -12,6 +14,8 @@ public class MessageService {
 
     @Autowired
     private MessageMapper messageMapper;
+    @Autowired
+    private SensiveFilter sensiveFilter;
 
     public List<Message> findConversations(int userId,int offset,int limit){
         return messageMapper.selectConversations(userId, offset, limit);
@@ -33,4 +37,31 @@ public class MessageService {
         return messageMapper.selectLetterUnreadCount(userId, conversationId);
     }
 
+    public int addMessage(Message message){
+        message.setContent(HtmlUtils.htmlEscape(message.getContent()));
+        message.setContent(sensiveFilter.filter(message.getContent()));
+        return messageMapper.insertMessage(message);
+    }
+
+    //修改已读状态
+    public int readMessage(List<Integer> ids){
+        return messageMapper.updateStatus(ids,1);
+    }
+
+    //查询最新的通知
+    public Message findLatestNotice(int userId, String topic){
+        return messageMapper.selectLatesNotice(userId, topic);
+    }
+    //查询某个主题下的通知数量
+    public int findNoticeCount(int userId , String topic){
+        return messageMapper.selectNoticeCount(userId, topic);
+    }
+    //查询未读通知数量
+    public int findNoticeUnreadCount(int userId,String topic){
+        return messageMapper.selectNoticeUnreadCount(userId, topic);
+    }
+    //查询某个主题的通知列表
+    public List<Message> findNotices(int userId,String topic,int offset,int limit){
+        return messageMapper.selectNotices(userId, topic, offset, limit);
+    };
 }
